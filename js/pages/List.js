@@ -1,5 +1,5 @@
 import { store } from "../main.js";
-import { embed } from "../util.js";
+import { embed, getVideoInfo } from "../util.js";
 import { score } from "../score.js";
 import { fetchEditors, fetchList } from "../content.js";
 
@@ -41,7 +41,13 @@ export default {
                 <div class="level" v-if="level">
                     <h1>{{ level.name }}</h1>
                     <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
-                    <iframe class="video" id="videoframe" :src="video" frameborder="0"></iframe>
+                    <iframe v-if="videoInfo.type === 'youtube'" class="video" id="videoframe" :src="videoInfo.src" frameborder="0" allowfullscreen></iframe>
+                    <iframe v-else-if="videoInfo.type === 'telegram'" class="video" id="videoframe" :src="videoInfo.src" frameborder="0" allowfullscreen></iframe>
+                    <div v-else class="video video-external">
+                        <a :href="videoInfo.original" target="_blank" class="video-link">
+                            <span>▶ Смотреть видео</span>
+                        </a>
+                    </div>
                     <ul class="stats">
                         <li>
                             <div class="type-title-sm">Points when completed</div>
@@ -117,17 +123,12 @@ export default {
         level() {
             return this.list?.[this.selected]?.[0];
         },
-        video() {
-            if (!this.level) return '';
-            if (!this.level.showcase) {
-                return embed(this.level.verification);
-            }
-
-            return embed(
-                this.toggledShowcase
-                    ? this.level.showcase
-                    : this.level.verification
-            );
+        videoInfo() {
+            if (!this.level) return { type: 'external', src: '', original: '' };
+            const url = this.toggledShowcase && this.level.showcase
+                ? this.level.showcase
+                : this.level.verification;
+            return getVideoInfo(url);
         },
     },
     async mounted() {

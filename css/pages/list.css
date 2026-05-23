@@ -60,6 +60,29 @@
 .page-list .level-container .level .video {
     aspect-ratio: 16/9;
 }
+.page-list .level-container .level .video-external {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-background-hover);
+    border-radius: 0.75rem;
+}
+.page-list .level-container .level .video-external .video-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: opacity 0.2s;
+}
+.page-list .level-container .level .video-external .video-link:hover {
+    opacity: 0.85;
+}
 .page-list .level-container .level .stats {
     display: flex;
     justify-content: space-evenly;

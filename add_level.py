@@ -280,7 +280,7 @@ def git_push():
 
 def main():
     print("=" * 50)
-    print("     XGDPS List — Менеджер уровней")
+    print("       MT List — Менеджер уровней")
     print("=" * 50)
     
     while True:
