@@ -1,6 +1,6 @@
 import { store } from '../main.js';
 
-// sha256 хеш пароля
+// хеш пароля, sha256
 const _h = '5de542185526a06c4edfd26b872691f6f69157bc4da5711035b611a994129aa1';
 
 async function sha256(str) {
@@ -9,7 +9,7 @@ async function sha256(str) {
     return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-// github api обёртка
+// работа с гитхабом
 class GH {
     constructor(token, repo) {
         this.token = token;
@@ -32,7 +32,6 @@ class GH {
     }
 
     async write(path, content, msg) {
-        // сначала берём sha текущего файла (если есть)
         const existing = await this.get(path);
         const body = {
             message: msg || `update ${path}`,
@@ -69,14 +68,13 @@ class GH {
         return r.ok;
     }
 
-    // проверка что токен рабочий
     async check() {
         try {
             const r = await fetch(this.base, {
                 headers: { 'Authorization': `token ${this.token}` }
             });
             return r.ok;
-        } catch(e) { return false; }
+        } catch (e) { return false; }
     }
 }
 
@@ -84,18 +82,18 @@ export default {
     template: `
         <main class="page-panel" v-if="!auth">
             <div class="panel-login">
-                <h2>Вход</h2>
+                <h2>врата аллаха</h2>
                 <form @submit.prevent="login">
                     <input
                         type="password"
                         v-model="pwd"
-                        placeholder="Пароль"
+                        placeholder="аллах акбар"
                         :class="{ 'shake': loginErr }"
                         autocomplete="off"
                     />
-                    <button type="submit">Войти</button>
+                    <button type="submit">войти в врата </button>
                 </form>
-                <p v-if="loginErr" class="panel-err">Неверный пароль</p>
+                <p v-if="loginErr" class="panel-err">Неверный аллаххх</p>
             </div>
         </main>
 
@@ -130,7 +128,7 @@ export default {
                     <div v-if="showAddLevel" class="panel-form">
                         <h3>Новый уровень</h3>
                         <div class="form-grid">
-                            <label>Имя файла <input v-model="newLvl.fileName" placeholder="Bloodbath" /></label>
+                            <label>Имя файла <input v-model="newLvl.fileName" placeholder="HUYNAPOLIS" /></label>
                             <label>Название <input v-model="newLvl.name" placeholder="Название уровня" /></label>
                             <label>ID <input v-model="newLvl.id" placeholder="12345" /></label>
                             <label>Автор <input v-model="newLvl.author" placeholder="Автор" /></label>
@@ -138,7 +136,7 @@ export default {
                             <label>Видео верификации <input v-model="newLvl.verification" placeholder="https://..." /></label>
                             <label>Соавторы <input v-model="newLvl.creators" placeholder="Через запятую" /></label>
                             <label>Мин. процент <input v-model="newLvl.percent" type="number" placeholder="100" /></label>
-                            <label>Пароль <input v-model="newLvl.password" placeholder="Free to copy" /></label>
+                            <label>Пароль <input v-model="newLvl.password" placeholder="ставь либо Free to copy либо сам пароль" /></label>
                             <label>Позиция <input v-model="newLvl.position" type="number" :placeholder="listData.length + 1" /></label>
                         </div>
                         <div class="form-actions">
@@ -176,7 +174,7 @@ export default {
                     </table>
                     <p v-else class="panel-empty">Лист пуст</p>
 
-                    <!-- модалка редактирования -->
+                    <!-- редактирование уровня -->
                     <div v-if="editIdx !== null" class="panel-modal-bg" @click.self="editIdx = null">
                         <div class="panel-modal">
                             <h3>Редактировать: {{ editLvl.name }}</h3>
@@ -215,10 +213,10 @@ export default {
                     </div>
                 </div>
 
-                <!-- редакторы -->
+                <!-- редакторы пидорасы -->
                 <div v-if="curTab === 'editors'" class="panel-section">
                     <div class="panel-head">
-                        <h2>Редакторы</h2>
+                        <h2>Редакторы пидорасы</h2>
                         <button class="btn-add" @click="addEditor">+ Добавить</button>
                     </div>
 
@@ -271,17 +269,14 @@ export default {
                         </p>
 
                         <div style="margin-top:1.5rem;opacity:.6;font-size:.85rem">
-                            <p><b>Как получить токен:</b></p>
-                            <p>GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)</p>
-                            <p>Нужен scope: <code>repo</code> (полный доступ к репозиторию)</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- экспорт -->
+                <!-- экспорт (хуйня только для бекапа) -->
                 <div v-if="curTab === 'export'" class="panel-section">
-                    <h2>Экспорт данных</h2>
-                    <p style="margin:.5rem 0;opacity:.7">Скачать данные как JSON файлы</p>
+                    <h2>Экспорт данных (ток для бекапа не трогай ничего) </h2>
+                    <p style="margin:.5rem 0;opacity:.7">Скачать все данные листа как JSON</p>
                     <div class="export-btns">
                         <button @click="exportList">📥 _list.json</button>
                         <button @click="exportEditors">📥 _editors.json</button>
@@ -304,9 +299,9 @@ export default {
         curTab: 'levels',
         tabs: [
             { id: 'levels', label: 'Уровни' },
-            { id: 'editors', label: 'Редакторы' },
+            { id: 'editors', label: 'Редакторы(состав админский)' },
             { id: 'settings', label: 'Настройки' },
-            { id: 'export', label: 'Экспорт' },
+            { id: 'export', label: 'экспорт (хуйня только для бекапа)' },
         ],
         listOrder: [],
         listData: [],
@@ -364,7 +359,7 @@ export default {
             sessionStorage.removeItem('_pa');
         },
 
-        // восстановить конфиг из localStorage
+        // конфиг гитхаба из localStorage
         restoreConfig() {
             try {
                 const saved = localStorage.getItem('_pcfg');
@@ -377,12 +372,11 @@ export default {
                         this.gh = new GH(this.cfg.token, this.cfg.repo);
                     }
                 }
-            } catch(e) {}
+            } catch (e) { }
         },
 
         async saveConfig() {
             localStorage.setItem('_pcfg', JSON.stringify(this.cfg));
-
             if (this.cfg.token && this.cfg.repo) {
                 const g = new GH(this.cfg.token, this.cfg.repo);
                 const ok = await g.check();
@@ -395,8 +389,6 @@ export default {
                     this.cfgStatus = 'err';
                     this.toast('Не удалось подключиться', 'err');
                 }
-            } else {
-                this.cfgStatus = '';
             }
         },
 
@@ -420,23 +412,22 @@ export default {
                         const lvl = await r.json();
                         lvl.path = fname;
                         this.listData.push(lvl);
-                    } catch(e) {
+                    } catch (e) {
                         this.listData.push({ path: fname, name: fname + ' (ошибка)', id: '?', author: '?', records: [] });
                     }
                 }
 
+                // редакторы
                 const edRes = await fetch('./data/_editors.json');
                 this.editors = await edRes.json();
-            } catch(e) {
-                this.toast('Ошибка загрузки', 'err');
+            } catch (e) {
+                this.toast('Ошибка загрузки данных', 'err');
             }
         },
 
-        // ======== запись через github ========
-
+        // запись файла — через гитхаб или скачиванием
         async pushFile(path, data, msg) {
             if (!this.gh) {
-                // фоллбек — скачать файл
                 this.downloadJSON(path.replace('data/', ''), data);
                 return true;
             }
@@ -448,41 +439,7 @@ export default {
             return await this.gh.del(path, msg);
         },
 
-        // сохранить _list.json + файл уровня
-        async commitLevel(lvl, msg) {
-            this.saving = true;
-            try {
-                const order = this.listData.map(l => l.path);
-                const copy = { ...lvl };
-                delete copy.path;
-
-                const ok1 = await this.pushFile('data/_list.json', order, msg || `update list`);
-                const ok2 = await this.pushFile(`data/${lvl.path}.json`, copy, msg || `update ${lvl.name}`);
-
-                if (ok1 && ok2) {
-                    this.toast(this.gh ? 'Сохранено в репозиторий' : 'Файлы скачаны');
-                } else {
-                    this.toast('Ошибка при сохранении', 'err');
-                }
-            } catch(e) {
-                this.toast('Ошибка: ' + e.message, 'err');
-            }
-            this.saving = false;
-        },
-
-        async commitList(msg) {
-            this.saving = true;
-            try {
-                const order = this.listData.map(l => l.path);
-                const ok = await this.pushFile('data/_list.json', order, msg || 'update list');
-                if (!ok) this.toast('Ошибка сохранения _list.json', 'err');
-            } catch(e) {
-                this.toast('Ошибка: ' + e.message, 'err');
-            }
-            this.saving = false;
-        },
-
-        // ======== уровни ========
+        // --- уровни xdd ---
 
         async addLevel() {
             const n = this.newLvl;
@@ -514,7 +471,19 @@ export default {
             this.listData.splice(idx, 0, lvl);
             this.listOrder.splice(idx, 0, n.fileName);
 
-            await this.commitLevel(lvl, `add ${n.name}`);
+            // коммитим
+            this.saving = true;
+            const order = this.listData.map(l => l.path);
+            const copy = { ...lvl }; delete copy.path;
+            const ok1 = await this.pushFile('data/_list.json', order, `add ${n.name}`);
+            const ok2 = await this.pushFile(`data/${n.fileName}.json`, copy, `add ${n.name}`);
+            this.saving = false;
+
+            if (ok1 && ok2) {
+                this.toast(this.gh ? 'Сохранено в репозиторий' : 'Файлы скачаны');
+            } else {
+                this.toast('Ошибка сохранения', 'err');
+            }
 
             this.newLvl = {
                 fileName: '', name: '', id: '', author: '',
@@ -532,7 +501,9 @@ export default {
 
         addRecordToEdit() {
             if (!this.editLvl.records) this.editLvl.records = [];
-            this.editLvl.records.push({ user: '', percent: 100, hz: 60, link: '', mobile: false });
+            this.editLvl.records.push({
+                user: '', percent: 100, hz: 60, link: '', mobile: false
+            });
         },
 
         async saveEditLevel() {
@@ -540,18 +511,13 @@ export default {
             this.listData[this.editIdx] = JSON.parse(JSON.stringify(this.editLvl));
 
             const lvl = this.listData[this.editIdx];
-            const copy = { ...lvl };
-            delete copy.path;
+            const copy = { ...lvl }; delete copy.path;
 
             this.saving = true;
             const ok = await this.pushFile(`data/${lvl.path}.json`, copy, `edit ${lvl.name}`);
             this.saving = false;
 
-            if (ok) {
-                this.toast(this.gh ? 'Сохранено' : 'Файл скачан');
-            } else {
-                this.toast('Ошибка', 'err');
-            }
+            this.toast(ok ? (this.gh ? 'Сохранено' : 'Файл скачан') : 'Ошибка', ok ? 'ok' : 'err');
             this.editIdx = null;
         },
 
@@ -562,7 +528,10 @@ export default {
             this.listData = [...this.listData];
             this.listOrder = [...this.listOrder];
 
-            await this.commitList(`swap #${i+1} and #${j+1}`);
+            this.saving = true;
+            const order = this.listData.map(l => l.path);
+            await this.pushFile('data/_list.json', order, `swap #${i + 1} and #${j + 1}`);
+            this.saving = false;
             this.toast(this.gh ? 'Порядок обновлён' : 'Файл скачан');
         },
 
@@ -576,14 +545,12 @@ export default {
             this.saving = true;
             const order = this.listData.map(l => l.path);
             await this.pushFile('data/_list.json', order, `remove ${lvl.name}`);
-            // удаляем сам файл из репо
             await this.pushDelete(`data/${lvl.path}.json`, `delete ${lvl.name}`);
             this.saving = false;
-
             this.toast(this.gh ? 'Удалено из репозитория' : 'Уровень удалён');
         },
 
-        // ======== редакторы ========
+        // --- редакторы пидорасы ---
 
         addEditor() {
             this.editors.push({ role: 'helper', name: '', link: '' });
@@ -595,15 +562,13 @@ export default {
                 if (e.link) obj.link = e.link;
                 return obj;
             });
-
             this.saving = true;
             const ok = await this.pushFile('data/_editors.json', data, 'update editors');
             this.saving = false;
-
             this.toast(ok ? (this.gh ? 'Редакторы обновлены' : 'Файл скачан') : 'Ошибка', ok ? 'ok' : 'err');
         },
 
-        // ======== экспорт ========
+        // --- экспорт ---
 
         exportList() { this.downloadJSON('_list.json', this.listOrder); },
         exportEditors() { this.downloadJSON('_editors.json', this.editors); },
@@ -611,13 +576,13 @@ export default {
             this.exportList();
             this.exportEditors();
             for (const lvl of this.listData) {
-                const copy = { ...lvl };
-                delete copy.path;
+                const copy = { ...lvl }; delete copy.path;
                 this.downloadJSON(lvl.path + '.json', copy);
             }
             this.toast('Все файлы скачаны');
         },
 
+        // скачать как json файл ыыыыы:)))
         downloadJSON(name, data) {
             const blob = new Blob([JSON.stringify(data, null, 4)], { type: 'application/json' });
             const a = document.createElement('a');
