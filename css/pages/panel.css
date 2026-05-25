@@ -1,0 +1,334 @@
+/* --- админка --- */
+
+.page-panel {
+    display: flex !important;
+    grid-template-columns: none;
+    height: 100%;
+}
+
+/* логин */
+.panel-login {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2.5rem 3rem;
+    background: var(--color-primary);
+    border-radius: .75rem;
+}
+.panel-login h2 {
+    font-size: 1.3rem;
+}
+.panel-login form {
+    display: flex;
+    gap: .5rem;
+}
+.panel-login input {
+    padding: .6rem 1rem;
+    border: none;
+    border-radius: .4rem;
+    outline: none;
+    background: var(--color-background);
+    color: var(--color-on-background);
+    font-family: inherit;
+    font-size: .95rem;
+    width: 14rem;
+}
+.panel-login button {
+    padding: .6rem 1.2rem;
+    border: none;
+    border-radius: .4rem;
+    background: var(--color-on-primary);
+    color: var(--color-primary);
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+}
+.panel-login button:hover { opacity: .85; }
+.panel-err {
+    color: #ff5555;
+    font-size: .85rem;
+}
+.panel-login input.shake {
+    animation: shake .35s;
+}
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+}
+
+/* боковая панель */
+.panel-sidebar {
+    width: 12rem;
+    min-width: 12rem;
+    padding: 1.5rem 1rem;
+    background: var(--color-primary);
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+.panel-nav {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    flex: 1;
+}
+.panel-nav button {
+    text-align: left;
+    padding: .65rem .8rem;
+    border: none;
+    border-radius: .4rem;
+    background: transparent;
+    color: var(--color-on-primary);
+    font-family: inherit;
+    font-size: .9rem;
+    cursor: pointer;
+    transition: background .15s;
+}
+.panel-nav button:hover {
+    background: rgba(255,255,255,.08);
+}
+.panel-nav button.active {
+    background: rgba(255,255,255,.15);
+    font-weight: 600;
+}
+.panel-status {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: .8rem;
+    padding: .3rem .8rem;
+    opacity: .7;
+}
+.status-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.status-dot.ok { background: #4a9; }
+.status-dot.off { background: #888; }
+.btn-save:disabled, .btn-add:disabled {
+    opacity: .5;
+    cursor: wait;
+}
+.panel-logout {
+    padding: .5rem .8rem;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: .4rem;
+    background: transparent;
+    color: var(--color-on-primary);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .85rem;
+    opacity: .7;
+    transition: opacity .15s;
+}
+.panel-logout:hover { opacity: 1; }
+
+/* контент */
+.panel-content {
+    flex: 1;
+    padding: 1.5rem 2rem;
+    overflow-y: auto;
+}
+.panel-section { max-width: 60rem; }
+.panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+.panel-head h2 { font-size: 1.2rem; }
+
+/* таблицы */
+.panel-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.panel-table th,
+.panel-table td {
+    padding: .55rem .6rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(128,128,128,.15);
+    font-size: .9rem;
+}
+.panel-table th {
+    font-weight: 600;
+    opacity: .6;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+.panel-table tbody tr:hover {
+    background: var(--color-background-hover);
+}
+.panel-table-sm td { padding: .35rem .4rem; }
+.col-rank { width: 3rem; text-align: center; }
+.col-actions {
+    display: flex;
+    gap: .25rem;
+    flex-wrap: nowrap;
+}
+.col-actions button {
+    background: transparent;
+    border: 1px solid rgba(128,128,128,.2);
+    border-radius: .3rem;
+    padding: .2rem .45rem;
+    cursor: pointer;
+    font-size: .75rem;
+    color: var(--color-on-background);
+    transition: background .15s;
+}
+.col-actions button:hover { background: var(--color-background-hover); }
+
+/* кнопки */
+.btn-add {
+    padding: .45rem 1rem;
+    border: none;
+    border-radius: .4rem;
+    background: #4a9; color: #fff;
+    cursor: pointer; font-family: inherit;
+    font-weight: 600; font-size: .85rem;
+    transition: opacity .15s;
+}
+.btn-add:hover { opacity: .85; }
+.btn-save {
+    padding: .5rem 1.5rem;
+    border: none;
+    border-radius: .4rem;
+    background: #4a9; color: #fff;
+    cursor: pointer; font-family: inherit;
+    font-weight: 600;
+    transition: opacity .15s;
+}
+.btn-save:hover { opacity: .85; }
+.btn-cancel {
+    padding: .5rem 1.2rem;
+    border: 1px solid rgba(128,128,128,.3);
+    border-radius: .4rem;
+    background: transparent;
+    color: var(--color-on-background);
+    cursor: pointer; font-family: inherit;
+}
+.btn-cancel:hover { background: var(--color-background-hover); }
+.btn-del {
+    color: #e55 !important;
+    border-color: rgba(238,85,85,.25) !important;
+}
+.btn-del:hover { background: rgba(238,85,85,.1) !important; }
+
+/* формы */
+.panel-form {
+    margin-bottom: 1.5rem;
+    padding: 1.2rem;
+    background: var(--color-primary);
+    border-radius: .5rem;
+}
+.panel-form h3 { margin-bottom: .8rem; font-size: 1rem; }
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .5rem;
+}
+.form-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    font-size: .8rem;
+    opacity: .8;
+}
+.form-grid input,
+.panel-table input,
+.panel-table select {
+    padding: .4rem .6rem;
+    border: 1px solid rgba(128,128,128,.2);
+    border-radius: .3rem;
+    background: var(--color-background);
+    color: var(--color-on-background);
+    font-family: inherit;
+    font-size: .88rem;
+}
+.input-sm { width: 5rem; }
+.form-actions {
+    display: flex;
+    gap: .5rem;
+    margin-top: .8rem;
+}
+
+/* модалка */
+.panel-modal-bg {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+.panel-modal {
+    background: var(--color-background);
+    color: var(--color-on-background);
+    padding: 1.5rem 2rem;
+    border-radius: .75rem;
+    max-width: 40rem;
+    width: 95%;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+.panel-modal h3 { margin-bottom: 1rem; }
+
+/* экспорт */
+.export-btns {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    margin-top: .5rem;
+}
+.export-btns button {
+    padding: .55rem 1.2rem;
+    border: 1px solid rgba(128,128,128,.25);
+    border-radius: .4rem;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .9rem;
+    transition: opacity .15s;
+}
+.export-btns button:hover { opacity: .8; }
+
+/* уведомление */
+.panel-notif {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    padding: .7rem 1.4rem;
+    border-radius: .4rem;
+    font-size: .9rem;
+    font-weight: 500;
+    z-index: 200;
+    box-shadow: 0 2px 12px rgba(0,0,0,.25);
+}
+.panel-notif.ok {
+    background: #3a8; color: #fff;
+}
+.panel-notif.err {
+    background: #d44; color: #fff;
+}
+.notif-enter-active { transition: all .3s ease; }
+.notif-leave-active { transition: all .3s ease; }
+.notif-enter-from,
+.notif-leave-to {
+    opacity: 0;
+    transform: translateY(1rem);
+}
+
+.panel-empty {
+    padding: 2rem;
+    text-align: center;
+    opacity: .5;
+}
