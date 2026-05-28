@@ -9,5 +9,13 @@
     "verification": "https://t.me/mtgdps/2",
     "percentToQualify": 100,
     "password": "Free to copy",
-    "records": []
+    "records": [
+        {
+            "user": "Likerrr",
+            "percent": 100,
+            "hz": 240,
+            "link": "",
+            "mobile": false
+        }
+    ]
 }
